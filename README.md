@@ -92,5 +92,5 @@ Usuário: admin
 
 Senha: 123
 
-🖋️ Autor
+Autor: Filipe Ferreira
 Desenvolvido como parte da Atividade 6 da disciplina de Programação Web (2026).
