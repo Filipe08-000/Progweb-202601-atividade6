@@ -1,8 +1,6 @@
 # Progweb-202601-atividade6
 Atividade 6- Montar Sistema Web em PHP - Completo
 
-Aqui está uma proposta de README.md completa, organizada e profissional para o seu projeto, baseada na estrutura de arquivos e no banco de dados que construímos.
-
 **Sistema de Gestão de Funcionários**
 Este é um sistema web completo desenvolvido em PHP para a gestão de funcionários, incluindo autenticação de usuários, operações de CRUD (Criar, Ler, Atualizar e Deletar), busca filtrada e paginação.
 
