@@ -3,21 +3,13 @@ session_start();
 require 'conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $usuario = $_POST['usuario'];
-    $senha = $_POST['senha'];
-
-    $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE usuario = :usuario AND senha = :senha");
-    $stmt->execute(['usuario' => $usuario, 'senha' => $senha]);
-    $user = $stmt->fetch();
-
-    if ($user) {
+    $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE usuario = :u AND senha = :s");
+    $stmt->execute(['u' => $_POST['usuario'], 's' => $_POST['senha']]);
+    if ($user = $stmt->fetch()) {
         $_SESSION['logado'] = true;
         $_SESSION['usuario'] = $user['usuario'];
-        header("Location: listagem.php");
-        exit;
-    } else {
-        $erro = "Usuário ou senha inválidos!";
-    }
+        header("Location: listagem.php"); exit;
+    } else { $erro = "Usuário ou senha inválidos!"; }
 }
 ?>
 <!DOCTYPE html>
@@ -26,22 +18,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <title>Login - Cadastro de Funcionários</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-cinza">
+<body>
     <div class="login-container">
         <div class="login-box">
-            <h2>Cadastro de Funcionários</h2>
-            <?php if(isset($erro)) echo "<p style='color:red;'>$erro</p>"; ?>
+            <h2 class="titulo-com-icone">
+                <i class="fas fa-user-circle"></i> 
+                <span>Cadastro de Funcionários</span>
+            </h2>
+
+            <?php if(isset($erro)) echo "<p style='color:red; margin-bottom:10px;'>$erro</p>"; ?>
+
             <form method="POST">
-                <div class="input-group">
+                <div class="input-with-icon">
+                    <i class="fas fa-user"></i>
                     <input type="text" name="usuario" placeholder="Usuário" required>
                 </div>
-                <div class="input-group">
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
                     <input type="password" name="senha" placeholder="Senha" required>
                 </div>
-                <button type="submit" class="btn-azul">Entrar</button>
+                <button type="submit" class="btn-entrar">Entrar</button>
             </form>
-            <a href="#" class="link-esqueci">Esqueci minha senha</a>
+            <a href="esqueci_senha.php" class="link-esqueci">Esqueci minha senha</a>
         </div>
     </div>
 </body>
